@@ -1,0 +1,6 @@
+- Cài thư viện cần thiết:
+    pip install -r requirements.txt
+- Chạy tool với website mục tiêu
+    python .\main.py .\targets\VulnMarket\
+- Mở giao diện 
+    python -m View.app --report reports/report.json --source .\targets\VulnMarket\

@@ -1,0 +1,6 @@
+tree-sitter
+tree-sitter-php
+textual
+rich
+semgrep
+google-genai

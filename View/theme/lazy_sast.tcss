@@ -1,0 +1,257 @@
+/* Lazy-SAST TUI Stylesheet */
+
+Screen {
+    background: #181825;
+    color: #cdd6f4;
+    layout: vertical;
+}
+
+#main-layout {
+    layout: vertical;
+    height: 1fr;
+}
+
+FindingsTable {
+    height: 30%;
+    min-height: 8;
+    max-height: 20;
+    border: round #45475a;
+    border-title-align: left;
+    background: #1e1e2e;
+    padding: 0;
+}
+
+FindingsTable:focus {
+    border: round #89b4fa;
+}
+
+#middle-container {
+    layout: horizontal;
+    height: 45%;
+    width: 100%;
+}
+
+FileTree {
+    width: 25%;
+    min-width: 20;
+    max-width: 45;
+    border: round #45475a;
+    border-title-align: left;
+    background: #1e1e2e;
+}
+
+FileTree:focus {
+    border: round #89b4fa;
+}
+
+SourceViewer {
+    width: 1fr;
+    height: 1fr;
+    border: round #45475a;
+    border-title-align: left;
+    background: #1e1e2e;
+    overflow: auto;
+}
+
+SourceViewer:focus {
+    border: round #89b4fa;
+}
+
+#bottom-container {
+    layout: horizontal;
+    height: 25%;
+    width: 100%;
+}
+
+TraceViewer {
+    width: 55%;
+    border: round #45475a;
+    border-title-align: left;
+    background: #1e1e2e;
+}
+
+TraceViewer:focus {
+    border: round #89b4fa;
+}
+
+SummaryPanel {
+    width: 1fr;
+    border: round #45475a;
+    border-title-align: left;
+    background: #1e1e2e;
+    overflow-y: scroll;
+}
+
+SummaryPanel:focus {
+    border: round #89b4fa;
+}
+
+StatusBar {
+    height: 1;
+    background: #11111b;
+    color: #a6adc8;
+    padding: 0 1;
+}
+
+/* Custom components inside panels */
+
+/* Trace Node style */
+.trace-item {
+    padding: 0 1;
+    background: #1e1e2e;
+    border: none;
+}
+
+.trace-item-focused {
+    background: #313244;
+    color: #89b4fa;
+}
+
+.trace-role-source {
+    color: #a6e3a1; /* Green */
+    text-style: bold;
+}
+
+.trace-role-propagation {
+    color: #f9e2af; /* Yellow */
+    text-style: bold;
+}
+
+.trace-role-call {
+    color: #89b4fa; /* Blue */
+    text-style: bold;
+}
+
+.trace-role-return {
+    color: #89dceb; /* Cyan */
+    text-style: bold;
+}
+
+.trace-role-safe-overwrite {
+    color: #74c7ec; /* Bright Cyan */
+    text-style: bold;
+}
+
+.trace-role-sink {
+    color: #f38ba8; /* Red */
+    text-style: bold;
+}
+
+/* DataTable tweaks */
+DataTable {
+    background: #1e1e2e;
+    color: #cdd6f4;
+}
+
+DataTable > .datatable--header {
+    background: #313244;
+    color: #f5c2e7;
+    text-style: bold;
+}
+
+DataTable > .datatable--cursor {
+    background: #45475a;
+    color: #cdd6f4;
+}
+
+/* Source code code layout */
+.code-line {
+    background: #1e1e2e;
+    color: #a6adc8;
+}
+
+.code-line-number {
+    color: #585b70;
+    background: #181825;
+    text-align: right;
+    padding-right: 1;
+}
+
+/* Triage states in summary panel */
+.triage-tp {
+    color: #a6e3a1;
+    text-style: bold;
+}
+
+.triage-fp {
+    color: #f38ba8;
+    text-style: bold;
+}
+
+.triage-rev {
+    color: #f9e2af;
+    text-style: bold;
+}
+
+.triage-none {
+    color: #9399b2;
+}
+
+/* Modal backgrounds and layout */
+HelpModal, SearchModal, TypeFilterModal, AIVerdictModal {
+    align: center middle;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+#modal-content, #search-content, #type-content, #ai-content {
+    width: 70;
+    height: auto;
+    background: #1e1e2e;
+    border: double #89b4fa;
+    padding: 1 2;
+}
+
+#help-text {
+    margin-bottom: 1;
+    height: auto;
+    max-height: 25;
+}
+
+#close-btn {
+    align: center middle;
+    width: 100%;
+}
+
+#modal-buttons {
+    layout: horizontal;
+    align: right middle;
+    margin-top: 1;
+    height: 3;
+    width: 100%;
+}
+
+#search-input {
+    margin-top: 1;
+    margin-bottom: 1;
+    background: #181825;
+    border: round #45475a;
+    color: #cdd6f4;
+}
+
+#search-input:focus {
+    border: round #89b4fa;
+}
+
+#type-list {
+    height: 12;
+    border: round #45475a;
+    background: #181825;
+    margin-top: 1;
+}
+
+#ai-verdict-body {
+    height: 18;
+    overflow-y: auto;
+    border: round #45475a;
+    background: #181825;
+    color: #cdd6f4;
+    padding: 1 2;
+    overflow-y: scroll;
+    margin-top: 1;
+    margin-bottom: 1;
+}
+
+#ai-close {
+    width: 100%;
+}
+

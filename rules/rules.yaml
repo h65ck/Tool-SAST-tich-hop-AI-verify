@@ -1,0 +1,136 @@
+rules:
+  # =========================
+  # SOURCES
+  # =========================
+  - id: detect-source
+    pattern-either:
+      - pattern: file_get_contents('php://input')
+      - pattern: $_GET[...]
+      - pattern: $_POST[...]
+      - pattern: $_COOKIE[...]
+      - pattern: $_REQUEST[...]
+      - pattern: $_SERVER[...]
+      - pattern: $_FILES[...]
+    message: "User-controlled source detected"
+    languages: [php]
+    severity: WARNING
+
+  # =========================
+  # COMMAND INJECTION SINKS
+  # =========================
+  - id: detect-command-sink
+    pattern-either:
+      - pattern: exec(...)
+      - pattern: system(...)
+      - pattern: shell_exec(...)
+      - pattern: passthru(...)
+      - pattern: proc_open(...)
+      - pattern: popen(...)
+    message: "Command injection sink detected"
+    languages: [php]
+    severity: WARNING
+
+  # =========================
+  # SQL INJECTION SINKS
+  # =========================
+  - id: detect-sql-sink
+    pattern-either:
+      # PHP Native
+      - pattern: mysqli_query(...)
+      - pattern: mysql_query(...)
+      - pattern: pg_query(...)
+      - pattern: sqlite_query(...)
+      - pattern: $CONN->query(...)
+      - pattern: $CONN->exec(...)
+      - pattern: $PDO->query(...)
+      - pattern: $PDO->exec(...)
+      # WordPress Sinks
+      - pattern: $wpdb->query(...)
+      - pattern: $wpdb->get_results(...)
+      - pattern: $wpdb->get_row(...)
+      - pattern: $wpdb->get_var(...)
+      - pattern: $wpdb->get_col(...)
+      - pattern: $wpdb->replace(...)
+      - pattern: $wpdb->insert(...)
+      - pattern: $wpdb->update(...)
+      - pattern: $wpdb->delete(...)
+    message: "SQL injection sink detected"
+    languages: [php]
+    severity: WARNING
+
+  # =========================
+  # XSS SINKS
+  # =========================
+  - id: detect-xss-sink
+    pattern-either:
+      - pattern: echo ...
+      - pattern: print ...
+      - pattern: printf(...)
+      - pattern: print_r(...)
+      - pattern: var_dump(...)
+    message: "XSS output sink detected"
+    languages: [php]
+    severity: WARNING
+
+  # =========================
+  # FILE INCLUSION / LFI SINKS
+  # =========================
+  - id: detect-file-inclusion-sink
+    pattern-either:
+      - pattern: include(...)
+      - pattern: require(...)
+      - pattern: include_once(...)
+      - pattern: require_once(...)
+    message: "File inclusion sink detected"
+    languages: [php]
+    severity: WARNING
+
+  # =========================
+  # PATH TRAVERSAL / FILE READ SINKS
+  # =========================
+  - id: detect-path-traversal-sink
+    patterns:
+      - pattern-either:
+          - pattern: file_get_contents(...)
+          - pattern: fopen(...)
+          - pattern: readfile(...)
+          - pattern: file(...)
+          - pattern: unlink(...)
+      - pattern-not: file_get_contents('php://input')
+    message: "Path traversal / file operation sink detected"
+    languages: [php]
+    severity: WARNING
+
+  # =========================
+  # FILE UPLOAD SINKS
+  # =========================
+  - id: detect-file-upload-sink
+    pattern-either:
+      - pattern: move_uploaded_file(...)
+    message: "File upload sink detected"
+    languages: [php]
+    severity: WARNING
+
+  # =========================
+  # SANITIZERS / FILTERS
+  # =========================
+  - id: detect-sanitizer
+    pattern-either:
+      # WordPress Specific
+      - pattern: esc_sql(...)
+      - pattern: esc_attr(...)
+      - pattern: esc_html(...)
+      - pattern: esc_url(...)
+      - pattern: sanitize_text_field(...)
+      - pattern: sanitize_email(...)
+      - pattern: $wpdb->prepare(...)
+      # PHP Native Type Casting / Filtering
+      - pattern: intval(...)
+      - pattern: floatval(...)
+      - pattern: absint(...)
+      - pattern: htmlspecialchars(...)
+      - pattern: strip_tags(...)
+      - pattern: addslashes(...)
+    message: "Sanitization or type-casting function detected"
+    languages: [php]
+    severity: INFO
